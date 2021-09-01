@@ -1,5 +1,16 @@
 # crypto currency wallets setup helper scripts for Debian based Linux distributions and subsystems
 
+## about
+
+Crypto currency(cc) wallets and daemons on Debian Linux based operating systems could be time consuming task,
+so here this project comes:
+   * Easy to prepare fresh installed machine or virtual machine for cc graphical wallets or console daemons
+   * Easy to manage separated multiple versions of wallets
+   * Easy to manage separated multiple blockchain directories
+   * Easy for developers and testers
+   * Easy to test untrusted wallets and sources in isolated sandboxed environment
+   * Easy to make custom profiles by changing few lines of config
+
 ## Step By Step
 
 1. Need to install git first to be able to checkout crypto currencies wallet setup helper scripts:
@@ -28,15 +39,14 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
    * firejail - sandboxing tool, optionally run wallets isolated from other programs/wallets/user files, also limited system calls
    * tor - TCP privacy routing layer
    * vnc server - remote desktop
-   * 
+   * proxychains - useful tool to force application to make all TCP over tor
 ```
-./setup.dependencies.GUI.sh
+./setup.dependencies.tools.sh
 ```
 
 6. To download and build wallets:
    * NOT securely sandboxed and NO privacy proxy by tor
 ```
-./setup.cc.main.sh ./setup/setup.cc.blocknet.sh install
 ./setup.cc.main.sh ./setup/setup.cc.blocknet.sh install
 ./setup.cc.main.sh ./setup/setup.cc.litecoin.sh install
 ./setup.cc.main.sh ./setup/setup.cc.bitcoin.sh install
