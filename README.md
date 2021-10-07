@@ -52,12 +52,11 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 6. To download and build some wallets:
    * estimated time on very slow machine ~30 minutes per one wallet
    * build process is securely sandboxed and privacy protected by proxychains(tor)
-   * (verge must be used with noproxychains options because of inability to disable integrated tor system)
 ```
 ./setup.cc.main.sh ./src/cfg.cc.blocknet.sh install
 ./setup.cc.main.sh ./src/cfg.cc.litecoin.sh install
 ./setup.cc.main.sh ./src/cfg.cc.bitcoin.sh install
-./setup.cc.main.sh ./src/cfg.cc.verge.sh install noproxychains
+./setup.cc.main.sh ./src/cfg.cc.verge.sh install
 ./setup.cc.main.sh ./src/cfg.cc.dogecoin.sh install
 ./setup.cc.main.sh ./src/cfg.cc.pivx.sh install
 ./setup.cc.main.sh ./src/cfg.cc.dash.sh install
@@ -65,33 +64,29 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ./setup.cc.main.sh ./src/cfg.cc.lbrycrd.sqlite.sh install
 ./setup.cc.main.sh ./src/cfg.cc.pocketcoin.sh install
 ```
-   * build process is NOT securely sandboxed and NOT privacy protected by proxychains(tor)
-   * (not recommended way, only for certain cases)
+   * in certain cases download error could happen, because of used proxychains
+   * for this case try again by replacing "install" with "continue"
 ```
-./setup.cc.main.sh ./src/cfg.cc.blocknet.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.litecoin.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.bitcoin.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.verge.sh install nofirejail
-./setup.cc.main.sh ./src/cfg.cc.dogecoin.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.pivx.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.dash.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.lbrycrd.leveldb.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.lbrycrd.sqlite.sh install nofirejail noproxychains
-./setup.cc.main.sh ./src/cfg.cc.pocketcoin.sh install nofirejail noproxychains
+./setup.cc.main.sh ./src/cfg.cc.<wallet name>.sh continue
 ```
-   * for more information about script and how to use optional arguments, please read help
+   * if problem persist try to add "noproxychains" option to try to download over clear-net
+```
+./setup.cc.main.sh ./src/cfg.cc.<wallet name>.sh continue noproxychains
+```
+   * for more information about build script and how to use optional arguments, please read help
 ```
 ./setup.cc.main.sh help | less
 ```
 
 7. To generate or overwrite custom firejail sandboxing run scripts:
    * estimated time on very slow machine 1 minute
+   * (verge must be used with noproxychains options because of inability to disable integrated tor system)
    * basic usage:
 ```
 ./setup.cc.firejail.sh ./src/cfg.cc.blocknet.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.litecoin.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.bitcoin.sh
-./setup.cc.firejail.sh ./src/cfg.cc.verge.sh
+./setup.cc.firejail.sh ./src/cfg.cc.verge.sh noproxychains
 ./setup.cc.firejail.sh ./src/cfg.cc.dogecoin.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.dash.sh
