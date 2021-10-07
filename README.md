@@ -11,7 +11,7 @@ so here this project comes:
    * Easy to test untrusted wallets and sources in isolated sandboxed environment with custom block-chain data directories
    * Easy to make custom profiles by changing few lines of configuration
 
-## Basic Step By Step Tutorial
+## Basic Step By Step Linux Setup Tutorial
 
 1. Need to install git first to be able to checkout crypto currencies wallet setup helper scripts:
    * estimated time on very slow machine few minutes
@@ -49,6 +49,8 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ./setup.dependencies.tools.sh
 ```
 
+## Basic Step By Step Blocknet Ecosystem Setup Tutorial
+
 6. To download and build some wallets:
    * estimated time on very slow machine ~30 minutes per one wallet
    * build process is securely sandboxed and privacy protected by proxychains(tor)
@@ -69,7 +71,7 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 ./setup.cc.main.sh ./src/cfg.cc.<wallet name>.sh continue
 ```
-   * if problem persist try to add "noproxychains" option to try to download over clear-net
+   * if download problem persist try to add "noproxychains" option to try to download over clear-net
 ```
 ./setup.cc.main.sh ./src/cfg.cc.<wallet name>.sh continue noproxychains
 ```
@@ -123,6 +125,8 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 ./setup.cc.dxbot.sh ... help | less
 ```
+
+## Basic Step By Step Management With Remote Console
 
 9. Hints how to remotely manage multiple console-interface-wallets(daemons) with GNU-screen + some basic navigation shortcuts for GNU-screen:
    * connect to remote machine by ssh(please replace "user" and "hostname" with real values)
@@ -212,6 +216,8 @@ listaddressgroupings | grep -v -e "\[" -e "\]"
 ```
 stop
 ```
+## Basic Step By Step Management With Remote Desktop
+
 10. Hints how to remote desktop management with VNC:
    * to SSH connect to server
 ```
@@ -232,7 +238,7 @@ tigervncserver -localhost yes -geometry 1024x768 -depth 16 :1
 ```
 ssh -L 5901:127.0.0.1:5901 -N -f user@hostname && xtigervncviewer -FullscreenSystemKeys=1 -MenuKey=F8 -RemoteResize=1 -FullScreen=0 localhost:5901 ; exit
 ```
-## Advanced examples of usage
+## Advanced Examples Of Usage
 
 1. How to generate 2 more pivx wallet run scripts, first for staking, second for blockdx liquidity to run em at same time:
    * first wallet designed for blockdx trading will be using default blockchain directory "~/.pivx/" and wallet.dat file as "wallet_pivx_blockdx" and firejail run script named with suffix "_blockdx"
