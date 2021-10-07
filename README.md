@@ -14,11 +14,13 @@ so here this project comes:
 ## Basic Step By Step Tutorial
 
 1. Need to install git first to be able to checkout crypto currencies wallet setup helper scripts:
+   * estimated time on very slow machine few minutes
 ```
 su - -c "apt update; apt full-upgrade; apt install git; exit"
 ```
 
 2. Create directory and download all setup helper scripts(~/Downloads/ccwallets is default directory)
+   * estimated time on very slow machine 1 minute
 ```
 mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 && cd ~/Downloads/ccwallets/cc.setup.helper.debian \
@@ -26,16 +28,19 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 
 3. To install common software dependencies
+   * estimated time on very slow machine few minutes
 ```
 ./setup.dependencies.common.sh
 ```
 
 4. If you need install software dependencies for graphical user interface wallets
+   * estimated time on very slow machine few minutes
 ```
 ./setup.dependencies.GUI.sh
 ```
 
 5. If you need install advanced tools like:
+   * estimated time on very slow machine few minutes
    * firejail - sandboxing tool, optionally run wallets isolated from other programs/wallets/user files, also limited system calls
    * tor - TCP privacy routing layer
    * vnc server - remote desktop
@@ -45,6 +50,7 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 
 6. To download and build some wallets:
+   * estimated time on very slow machine ~30 minutes per one wallet
    * build process is securely sandboxed and privacy protected by proxychains(tor)
    * (verge must be used with noproxychains options because of inability to disable integrated tor system)
 ```
@@ -79,7 +85,8 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 
 7. To generate or overwrite custom firejail sandboxing run scripts:
-   * basic usage
+   * estimated time on very slow machine 1 minute
+   * basic usage:
 ```
 ./setup.cc.firejail.sh ./src/cfg.cc.blocknet.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.litecoin.sh
@@ -98,6 +105,7 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 
 8. To setup dxbot strategy for custom trading pair:
+   * estimated time on very slow machine 1 minute
    * blocknet wallet configuration will be updated if needed
    * maker wallet configuration will be updated if needed
    * taker wallet configuration will be updated if needed
@@ -132,7 +140,7 @@ screen -R
 ```
    * some GNU-screen shortcuts and navigation between tabs to manage multiple console apps at same time:
 ```
-* to detach from screen session    CTRL + a + d
+* to detach from screen session(apps will keep running in backround)    CTRL + a + d
 * to create new screen "tab"    CTRL + a + c
 * to list and select screen "tab"    CTRL + a + "
 * to go next tab    CTRL + a + n
