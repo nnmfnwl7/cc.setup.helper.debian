@@ -24,13 +24,22 @@ su - -c "apt update; apt full-upgrade; apt install git; exit"
 ```
 mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 && cd ~/Downloads/ccwallets/cc.setup.helper.debian \
-&& git checkout https://github.com/nnmfnwl7/cc.setup.helper.debian.git ./
+&& git clone https://github.com/nnmfnwl7/cc.setup.helper.debian.git ./
 ```
 
 3. To install common software dependencies
    * estimated time on very slow machine few minutes
+   * firejail - sandboxing tool, to run wallets isolated from other programs/wallets/user files, also limited system calls, enabled by default
+   * tor - TCP privacy routing layer
+   * proxychains - useful tool to force application to make all TCP over TOR, enabled by default
 ```
 ./setup.dependencies.common.sh
+```
+   * Proxychains configuration update is needed
+   * to allow localhost access
+   * to update SOCKS version 4 to 5
+```
+./setup.cfg.proxychains.sh install
 ```
 
 4. If you need install software dependencies for graphical user interface wallets
@@ -41,10 +50,9 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 
 5. If you need install advanced tools like:
    * estimated time on very slow machine few minutes
-   * firejail - sandboxing tool, optionally run wallets isolated from other programs/wallets/user files, also limited system calls
-   * tor - TCP privacy routing layer
-   * vnc server - remote desktop
-   * proxychains - useful tool to force application to make all TCP over tor
+   * GNU screen - for management with remote console
+   * vnc server - for management with remote desktop
+   
 ```
 ./setup.dependencies.tools.sh
 ```
