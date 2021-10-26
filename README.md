@@ -7,19 +7,22 @@ so here this project comes:
    * Easy to prepare fresh installed machine or virtual machine for cc GUI wallets or CLI daemons
    * Easy to manage multiple versions of wallets
    * Easy to manage multiple blockchain directories
-   * Easy for developers and testers to build or share custom build configurations
-   * Easy to test untrusted wallets and sources in isolated sandboxed environment with custom block-chain data directories
+   * Easy to make and share custom build configurations between developers, testers,...
    * Easy to make custom profiles by changing few lines of configuration
+   * Easy to setup Blocknet+XBridge+DxBot+trading/liquidity-Strategy
+   * Whole build process and wallet security protection by firejail sandbox
+   * Whole build process and wallet network privacy protection by TOR
+   * Easy to test untrusted wallets because build-in system/network protection
 
 ## Basic Step By Step Linux Setup Tutorial
 
-1. Need to install git first to be able to checkout crypto currencies wallet setup helper scripts:
+1. At first need to update system and install git:
    * estimated time on very slow machine few minutes
 ```
 su - -c "apt update; apt full-upgrade; apt install git; exit"
 ```
 
-2. Create directory and download all setup helper scripts(~/Downloads/ccwallets is default directory)
+2. Create root directory(~/Downloads/ccwallets) and download all cc.setup.helper.debian
    * estimated time on very slow machine 1 minute
 ```
 mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
@@ -111,9 +114,7 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 
 8. To setup dxbot strategy for custom trading pair:
    * estimated time on very slow machine 1 minute
-   * blocknet wallet configuration will be updated if needed
-   * maker wallet configuration will be updated if needed
-   * taker wallet configuration will be updated if needed
+   * blocknet/maker/taker wallet configuration will be updated if needed
    * blocknet xbridge configuration will be updated if needed
    * dxmakerbot will be downloaded if needed
    * dependencies for running dxmakerbot will be installed if needed
@@ -168,62 +169,7 @@ screen -R
 ```
 ./bin/blocknet.cli.bin <command...>
 ```
-   * useful CLI RPC help command and list all by less command(Q to exit, / to search, n find next):
-```
-help | less
-```
-   * usefull CLI RPC to unlock wallet fully
-```
-walletpassphrase "$(read -sp "pwd: " undo; echo $undo;undo=)" 9999999999
-```
-   * usefull CLI RPC to unlock wallet fully and most secure way(supported only by NEW RPC CLIENTS LIKE BITCOIN)
-```
--stdinwalletpassphrase walletpassphrase
-```
-   * usefull CLI RPC to show basic info about wallet
-```
-getwalletinfo | grep -e balance -e txcount -e unlocked 
-```
-   * usefull CLI RPC to get staking information
-```
-getstakingstatus
-```
-   * usefull CLI RPC to get basic blockchain information
-```
-getblockchaininfo | grep -e blocks -e headers -e bestblockhash
-```
-   * useful CLI RPC to get UPLOAD / DOWNLOAD data information
-```
-getnettotals | grep -e totalbytes
-```
-   * useful CLI RPC to get number of active connections
-```
-getconnectioncount
-```
-   * useful CLI RPC to disable or enable network
-```
-setnetworkactive true/false
-```
-   * useful CLI RPC to show connected nodes:
-```
-getpeerinfo | grep "\"addr\"" | grep "\."; 
-```
-   * useful CLI RPC to show list of all UTXOS:
-```
-listunspent 0 | grep -e address -e label -e amount -e confirmations
-```
-   * useful CLI RPC to list all generated addresses and all time received balances:
-```
-listreceivedbyaddress 0 true | grep -e address -e label -e amount
-```
-   * useful CLI RPC to list addresses and actual balances:
-```
-listaddressgroupings | grep -v -e "\[" -e "\]"
-```
-   * useful CLI RPC to stop wallet daemon:
-```
-stop
-```
+
 ## Basic Step By Step Management With Remote Desktop
 
 10. Hints how to remote desktop management with VNC:
@@ -248,7 +194,7 @@ ssh -L 5901:127.0.0.1:5901 -N -f user@hostname && xtigervncviewer -FullscreenSys
 ```
 ## Advanced Examples Of Usage
 
-1. How to generate 2 more pivx wallet run scripts, first for staking, second for blockdx liquidity to run em at same time:
+11. How to generate 2 more pivx wallet run scripts, first for staking, second for blockdx liquidity to run em at same time:
    * first wallet designed for blockdx trading will be using default blockchain directory "~/.pivx/" and wallet.dat file as "wallet_pivx_blockdx" and firejail run script named with suffix "_blockdx"
    * second wallet designed for staking will be using custom blockchain directory "~/.pivx_staking" and wallet dat file "wallet_pivx_staking" and firejail run script named with suffix "_staking"
 ```
@@ -271,3 +217,62 @@ cd ~/Downloads/ccwallets/pivx/
 ./firejail.pivx_blockdx.cli.bin.sh
 ```
    * so fast so simple, cheers.
+
+## Some Useful wallet commands
+
+   * list all commands(Q to exit, / to search, n find next):
+```
+help | less
+```
+   * unlock wallet fully
+```
+walletpassphrase "$(read -sp "pwd: " undo; echo $undo;undo=)" 9999999999
+```
+   * unlock wallet fully and most secure way(supported only by NEW RPC CLIENTS LIKE BITCOIN)
+```
+-stdinwalletpassphrase walletpassphrase
+```
+   * show basic info about wallet
+```
+getwalletinfo | grep -e balance -e txcount -e unlocked 
+```
+   * show staking information
+```
+getstakingstatus
+```
+   * show basic blockchain information
+```
+getblockchaininfo | grep -e blocks -e headers -e bestblockhash
+```
+   * show UPLOAD / DOWNLOAD data information
+```
+getnettotals | grep -e totalbytes
+```
+   * show number of active connections
+```
+getconnectioncount
+```
+   * disable or enable network
+```
+setnetworkactive true/false
+```
+   * show connected nodes:
+```
+getpeerinfo | grep "\"addr\"" | grep "\."; 
+```
+   * show list of all wallet UTXOs:
+```
+listunspent 0 | grep -e address -e label -e amount -e confirmations
+```
+   * list all generated addresses and all time received balances:
+```
+listreceivedbyaddress 0 true | grep -e address -e label -e amount
+```
+   * list addresses and actual balances:
+```
+listaddressgroupings | grep -v -e "\[" -e "\]"
+```
+   * stop wallet:
+```
+stop
+```
