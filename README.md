@@ -44,7 +44,11 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
 ```
 ./setup.cfg.proxychains.sh install
 ```
+   * Need allow user to use tor
+```
+su - -c "usermod -a -G debian-tor ${USER}; exit"
 
+```
 4. If you need install software dependencies for graphical user interface wallets
    * estimated time on very slow machine few minutes
 ```
