@@ -205,7 +205,6 @@ ssh -L 5901:127.0.0.1:5901 -N -f user@hostname && xtigervncviewer -FullscreenSys
 ```
 ./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx/ wallet_pivx_blockdx _blockdx
 ./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx_staking/ wallet_pivx_staking _staking
-
 ```
    * after generating run script, to run GUI/DAEMON/CLI for staking wallet:
 ```
