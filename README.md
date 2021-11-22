@@ -1,4 +1,4 @@
-# Crypto currency wallets setup helper scripts for Debian based Linux distributions and subsystems
+# Secure and Private Crypto-wallets Setup-helper-scripts for Debian GNU/Linux
 
 ## About
 
@@ -47,8 +47,8 @@ mkdir -p ~/Downloads/ccwallets/cc.setup.helper.debian \
    * Need allow user to use tor
 ```
 su - -c "usermod -a -G debian-tor ${USER}; exit"
-
 ```
+
 4. If you need install software dependencies for graphical user interface wallets
    * estimated time on very slow machine few minutes
 ```
@@ -126,13 +126,14 @@ su - -c "usermod -a -G debian-tor ${USER}; exit"
    
    * following first command: is to setup custom blocknet(xbridge handler) with blocknet(as trading pair maker) with litecoin(as trading pair taker) with dxmakerbot alfa version and predefined strategy for block.ltc named as test1 strategy set up on addresses blocknet01 and litecoin01
 ```
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.block.ltc.sh test1      blocknet01 litecoin01
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.bitcoin.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.btc.ltc.sh test1         bitcoin01  litecoin02
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.verge.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.xvg.ltc.sh test1           verge01    litecoin03
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.dogecoin.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.doge.ltc.sh test1       dogecoin01 litecoin04
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.pivx.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.pivx.ltc.sh test1           pivx01     litecoin05
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.dash.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.dash.ltc.sh test1           dash01     litecoin06
-./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.lbrycrd.leveldb.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.lbc.ltc.sh test1 lbrycrd01  litecoin07
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.block.ltc.sh test1      blocknet01   litecoin01
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.bitcoin.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.btc.ltc.sh test1         bitcoin01    litecoin02
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.verge.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.xvg.ltc.sh test1           verge01      litecoin03
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.dogecoin.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.doge.ltc.sh test1       dogecoin01   litecoin04
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.pivx.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.pivx.ltc.sh test1           pivx01       litecoin05
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.dash.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.dash.ltc.sh test1           dash01       litecoin06
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.lbrycrd.leveldb.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.lbc.ltc.sh test1 lbrycrd01    litecoin07
+./setup.cc.dxbot.sh ./src/cfg.cc.blocknet.sh ./src/cfg.cc.pocketcoin.sh ./src/cfg.cc.litecoin.sh ./src/cfg.dxbot.alfa.sh ./src/cfg.strategy.pkoin.ltc.sh test1    pocketcoin01 litecoin08
 ```
    * for more information about dxbot script and how to use optional arguments, please read help
 ```
@@ -222,61 +223,78 @@ cd ~/Downloads/ccwallets/pivx/
 ```
    * so fast so simple, cheers.
 
-## Some Useful wallet commands
+## Some Useful predefined cli commands
 
    * list all commands(Q to exit, / to search, n find next):
+   * `help | less`:
 ```
-help | less
+./help
 ```
-   * unlock wallet fully
+   * unlock wallet fully /unlock for staking only /lock wallet:
+   * `walletpassphrase "$(read -sp "pwd: " undo; echo $undo;undo=)" 9999999999`
 ```
-walletpassphrase "$(read -sp "pwd: " undo; echo $undo;undo=)" 9999999999
+./unlock.full
+./unlock.staking
+./lock
 ```
    * unlock wallet fully and most secure way(supported only by NEW RPC CLIENTS LIKE BITCOIN)
+   * `-stdinwalletpassphrase walletpassphrase`
 ```
--stdinwalletpassphrase walletpassphrase
+./unlock.full
 ```
    * show basic info about wallet
+   * `getwalletinfo | grep -e balance -e txcount -e unlocked`
 ```
-getwalletinfo | grep -e balance -e txcount -e unlocked 
+./getwalletinfo.basic
 ```
    * show staking information
+   * `getstakingstatus`
 ```
-getstakingstatus
+./getstakingstatus
 ```
    * show basic blockchain information
+   * `getblockchaininfo | grep -e blocks -e headers -e bestblockhash`
 ```
-getblockchaininfo | grep -e blocks -e headers -e bestblockhash
+./getblockchaininfo.basic
 ```
    * show UPLOAD / DOWNLOAD data information
+   * `getnettotals | grep -e totalbytes`
 ```
-getnettotals | grep -e totalbytes
+./getnettotals.basics
 ```
    * show number of active connections
+   * `getconnectioncount`
 ```
-getconnectioncount
+./getconnectioncount
 ```
    * disable or enable network
+   * `setnetworkactive true/false`
 ```
-setnetworkactive true/false
+./setnetworkactive.true
+./setnetworkactive.false
 ```
    * show connected nodes:
+   * `getpeerinfo | grep "\"addr\"" | grep "\."`
 ```
-getpeerinfo | grep "\"addr\"" | grep "\."; 
+./getpeerinfo.basic
 ```
    * show list of all wallet UTXOs:
+   * `listunspent 0 | grep -e address -e label -e amount -e confirmations`
 ```
-listunspent 0 | grep -e address -e label -e amount -e confirmations
+./listunspent.basic
 ```
    * list all generated addresses and all time received balances:
+   * `listreceivedbyaddress 0 true | grep -e address -e label -e amount`
 ```
-listreceivedbyaddress 0 true | grep -e address -e label -e amount
+./listreceivedbyaddress.basic
 ```
    * list addresses and actual balances:
+   * `listaddressgroupings | grep -v -e "\[" -e "\]"`
 ```
-listaddressgroupings | grep -v -e "\[" -e "\]"
+./listaddressgroupings.basic
 ```
    * stop wallet:
+   * `stop`
 ```
-stop
+./stop
 ```
