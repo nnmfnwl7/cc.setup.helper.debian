@@ -4,15 +4,17 @@
 
 Crypto currency(cc) wallets and daemons management could be time consuming task,
 so here this project comes:
-   * Easy to prepare fresh installed machine or virtual machine for cc GUI wallets or CLI daemons
-   * Easy to manage multiple versions of wallets
-   * Easy to manage multiple blockchain directories
-   * Easy to make and share custom build configurations between developers, testers,...
-   * Easy to make custom profiles by changing few lines of configuration
-   * Easy to setup Blocknet+XBridge+DxBot+trading/liquidity-Strategy
-   * Whole build process and wallet security protection by firejail sandbox
-   * Whole build process and wallet network privacy protection by TOR
-   * Easy to test untrusted wallets because build-in system/network protection
+   * Easy to `prepare` fresh installed `machine` or virtual machine for cc GUI wallets or CLI daemons
+   * Easy to manage `multiple wallet versions`
+   * Easy to manage `multiple blockchain directories`
+   * Easy to manage `multiple wallet.dat files`
+   * Easy to make and `share custom build configurations` between developers, testers,...
+   * Easy to `make custom profiles` by changing few lines of configuration
+   * Easy to `setup Blocknet+XBridge+DxBot+trading/liquidity-Strategy`
+   * Whole build process and wallet security `protection by firejail sandbox`
+   * Whole build process and wallet `network privacy protection by TOR`
+   * Easy to `test untrusted wallets in secured environment` because build-in system/network protection
+   * And much more
 
 ## Basic Step By Step Linux Setup Tutorial
 
@@ -97,13 +99,12 @@ su - -c "usermod -a -G debian-tor ${USER}; exit"
 
 7. To generate or overwrite custom firejail sandboxing run scripts:
    * estimated time on very slow machine 1 minute
-   * (verge must be used with noproxychains options because of inability to disable integrated tor system)
    * basic usage:
 ```
 ./setup.cc.firejail.sh ./src/cfg.cc.blocknet.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.litecoin.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.bitcoin.sh
-./setup.cc.firejail.sh ./src/cfg.cc.verge.sh noproxychains
+./setup.cc.firejail.sh ./src/cfg.cc.verge.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.dogecoin.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh
 ./setup.cc.firejail.sh ./src/cfg.cc.dash.sh
@@ -164,15 +165,19 @@ screen -R
 ```
    * to start ie: blocknet wallet daemon securely sandboxed:
 ```
-~/Downloads/ccwallets/blocknet && ./firejail.blocknet.d.bin.sh
+~/Downloads/ccwallets/blocknet && ./firejail.blocknet.wallet_block.d.bin.sh
 ```
    * to start ie: blocknet cli sandbox:
 ```
-~/Downloads/ccwallets/blocknet && ./firejail.blocknet.cli.bin.sh
+~/Downloads/ccwallets/blocknet && ./firejail.blocknet.wallet_block.cli.bin.sh
 ```
-   * to execute CLI RPC call for ie: blocknet:
+   * to execute CLI RPC call in actual cli sandxbox by predefined command:
 ```
-./bin/blocknet.cli.bin <command...>
+./cli <rpc command... like help>
+```
+   * to show and easy use predefined cli commands for actual cli sandbox type ./ and autocomplete by TAB TAB key
+```
+./ TAB TAB
 ```
 
 ## Basic Step By Step Management With Remote Desktop
@@ -203,26 +208,28 @@ ssh -L 5901:127.0.0.1:5901 -N -f user@hostname && xtigervncviewer -FullscreenSys
    * first wallet designed for blockdx trading will be using default blockchain directory "~/.pivx/" and wallet.dat file as "wallet_pivx_blockdx" and firejail run script named with suffix "_blockdx"
    * second wallet designed for staking will be using custom blockchain directory "~/.pivx_staking" and wallet dat file "wallet_pivx_staking" and firejail run script named with suffix "_staking"
 ```
-./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx/ wallet_pivx_blockdx _blockdx
-./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx_staking/ wallet_pivx_staking _staking
+./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx/ wallet_pivx_blockdx
+./setup.cc.firejail.sh ./src/cfg.cc.pivx.sh ~/Downloads/ccwallets/pivx/ ~/.pivx_staking/ wallet_pivx_staking
 ```
    * after generating run script, to run GUI/DAEMON/CLI for staking wallet:
 ```
 cd ~/Downloads/ccwallets/pivx/
-./firejail.pivx_staking.qt.bin.sh
-./firejail.pivx_staking.d.bin.sh
-./firejail.pivx_staking.cli.bin.sh
+./firejail.wallet_pivx_staking.qt.bin.sh
+./firejail.wallet_pivx_staking.d.bin.sh
+./firejail.wallet_pivx_staking.cli.bin.sh
 ```
    * after generating run script, to run GUI/DAEMON/CLI for blockdx liquidity wallet:
 ```
 cd ~/Downloads/ccwallets/pivx/
-./firejail.pivx_blockdx.qt.bin.sh
-./firejail.pivx_blockdx.d.bin.sh
-./firejail.pivx_blockdx.cli.bin.sh
+./firejail.wallet_pivx_blockdx.qt.bin.sh
+./firejail.wallet_pivx_blockdx.d.bin.sh
+./firejail.wallet_pivx_blockdx.cli.bin.sh
 ```
    * so fast so simple, cheers.
 
-## Some Useful predefined cli commands
+## Some Other Useful predefined cli commands
+
+12. For every firejail generated script for combination of wallet.version+blockchain.dir+wallet.dat there is always generated list of specific predefined CLI RPC commands like:
 
    * list all commands(Q to exit, / to search, n find next):
    * `help | less`:
@@ -296,4 +303,109 @@ cd ~/Downloads/ccwallets/pivx/
    * `stop`
 ```
 ./stop
+```
+
+## Basic Step By Step Whole Ecosystem Startup Automatization Examples
+
+13. Manual gnu screen and all stuff around initialization could take some time, so How to start user predefined ecosystem in GNU-screen with just copy pasting commands or saving like shell script for whatever even automatic startup...???
+
+   * at first we need to start GNU-screen session named let say "cryptostuff" and one window/tab named let say "uptime" used for static system analysis.
+   * IF YOU WANT `SCREEN SESSION TO SUPPORT AND START GUI WALLETS`, THIS INITIAL SCREEN START COMMAND MUST BE CALLED INSIDE GRAPHICAL USER INTERFACE SESSION OR INSIDE IE. VNC SESSION. So should not be called within classic SSH session.
+   * Do not call this command twice it will start another screen session with same name. In case just connect by `screen -r sessionname` and quit it by ie `crtl+d`
+```
+screen -dmS "cryptostuff" -t "uptime"
+```
+   * use screen window/tab named "uptime" as for operating system/storage/temp/network status overview. This will enter and execute two commands inside this window/tab
+```
+gssn='cryptostuff' # gnu screen session name
+gswt='uptime' # gnu screen window/tab title/name
+
+screen -S ${gssn} -p "${gswt}" -X stuff 'sensors\n'
+screen -S ${gssn} -p "${gswt}" -X stuff 'uptime; free -mh; df -h | grep -e "Size" -e " /$" -e "boot" -e "home"; sensors | grep -e temp -e Core -e Composite; /sbin/ifconfig | grep packets\n'
+```
+   * create new screen window/tab named like "htop" and run htop command for realtime system analysis
+```
+gswt='htop'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'htop\n'
+```
+   * create new screen window/tab named "cc.setup.helper.debian" reserved as own cc.setup.helper later management
+```
+gswt='cc.setup.helper.debian'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/cc.setup.helper.debian/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff 'ls -la\n'
+
+```
+   * create new screen tab named 'blocknet staking cli', run firejail protected CLI inside this tab for this specific previously generated 'blocknet staking wallet instance'
+```
+gswt='blocknet.staking.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_staking.cli.bin.sh\n'
+
+```
+   * create new screen tab named 'pocketcoin staking cli', run firejail protected CLI inside this tab for this specific previously generated 'pocketcoin staking wallet instance'
+```
+gswt='pocketcoin.staking.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/pocketcoin/sqlite/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_pkoin_staking.cli.bin.sh\n'
+
+```
+   * new screen tab, named 'blocknet cli', running blocknet cli, block wallet version with multi-pair-dxbot xbrodge API support
+```
+gswt='blocknet.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet.qa/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_dex.cli.bin.sh\n'
+```
+   * new screen tab, named 'bitcoin cli', running bitcoin cli, bitcoin wallet used with dxbot...
+```
+gswt='bitcoin.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/bitcoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.bitcoin.wallet_btc_dex.cli.bin.sh\n'
+```
+   * new screen tab, named 'litecoin cli', running litecoin cli, litecoin wallet used with dxbot...
+```
+gswt='litecoin.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/litecoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.litecoin.wallet_ltc_dex.cli.bin.sh\n'
+```
+   * new screen tab, named 'blocknet', running blocknet qt wallet, block wallet version with multi-pair-dxbot xbrodge API support
+```
+gswt='blocknet'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet.qa/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_dex.qt.bin.sh\n'
+```
+   * new screen tab, named 'bitcoin', running bitcoin qt wallet, bitcoin wallet used with dxbot...
+```
+gswt='bitcoin'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/bitcoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.bitcoin.wallet_btc_dex.qt.bin.sh\n'
+```
+   * new screen tab, named 'litecoin', running litecoin qt wallet, litecoin wallet used with dxbot...
+```
+gswt='litecoin'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/litecoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.litecoin.wallet_ltc_dex.qt.bin.sh\n'
+```
+   * new screen tab, named 'BTC LTC', running previously generated dxbot BTC LTC pair script
+```
+gswt='BTC.LTC'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.BTC.LTC.test1.sh\n'
+```
+   * new screen tab, named 'LTC BTC', running previously generated dxbot LTC BTC pair script
+```
+gswt='LTC.BTC'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.LTC.BTC.test1.sh\n'
 ```
