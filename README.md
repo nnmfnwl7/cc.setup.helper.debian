@@ -11,10 +11,11 @@ so here this project comes:
    * Easy to make and `share custom build configurations` between developers, testers,...
    * Easy to `make custom profiles` by changing few lines of configuration
    * Easy to `setup Blocknet+XBridge+DxBot+trading/liquidity-Strategy`
+   * Easy to setup `private, opensource and decetralized liquidity pools` that directly doing atomic-swaps between native wallets like BTC-LTC, DOGE-LTC...
    * Whole build process and wallet security `protection by firejail sandbox`
    * Whole build process and wallet `network privacy protection by TOR`
    * Easy to `test untrusted wallets in secured environment` because build-in system/network protection
-   * And much more
+   * And little bit more
 
 ## Basic Step By Step Linux Setup Tutorial
 
@@ -310,7 +311,7 @@ cd ~/Downloads/ccwallets/pivx/
 13. Manual gnu screen and all stuff around initialization could take some time, so How to start user predefined ecosystem in GNU-screen with just copy pasting commands or saving like shell script for whatever even automatic startup...???
 
    * at first we need to start GNU-screen session named let say "cryptostuff" and one window/tab named let say "uptime" used for static system analysis.
-   * IF YOU WANT `SCREEN SESSION TO SUPPORT AND START GUI WALLETS`, THIS INITIAL SCREEN START COMMAND MUST BE CALLED INSIDE GRAPHICAL USER INTERFACE SESSION OR INSIDE IE. VNC SESSION. So should not be called within classic SSH session.
+   * IF YOU WANT FROM `SCREEN SESSION ABILITY TO SUPPORT AND START GUI WALLETS ALSO`, THIS INITIAL SCREEN START COMMAND MUST BE CALLED INSIDE GRAPHICAL USER INTERFACE SESSION OR INSIDE IE. VNC SESSION. So should not be called within classic SSH session.
    * Do not call this command twice it will start another screen session with same name. In case just connect by `screen -r sessionname` and quit it by ie `crtl+d`
 ```
 screen -dmS "cryptostuff" -t "uptime"
@@ -337,75 +338,108 @@ screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/cc.setup.helpe
 screen -S ${gssn} -p "${gswt}" -X stuff 'ls -la\n'
 
 ```
-   * create new screen tab named 'blocknet staking cli', run firejail protected CLI inside this tab for this specific previously generated 'blocknet staking wallet instance'
+   * create new screen tab named 'blocknet staking', run firejail protected QT wallet inside this tab for this specific previously generated 'blocknet staking wallet instance'
+   * also screen tab 'blocknet staking cli', run firejail protected CLI inside this tab for this specific previously generated 'blocknet staking wallet instance'
 ```
+gswt='blocknet.staking'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_staking.qt.bin.sh\n'
+
 gswt='blocknet.staking.cli'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_staking.cli.bin.sh\n'
+```
+   * 'pocketcoin staking' tab...
+   * 'pocketcoin staking cli' tab...
+```
+gswt='pocketcoin.staking'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/pocketcoin/sqlite/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_pkoin_staking.qt.bin.sh\n'
 
-```
-   * create new screen tab named 'pocketcoin staking cli', run firejail protected CLI inside this tab for this specific previously generated 'pocketcoin staking wallet instance'
-```
 gswt='pocketcoin.staking.cli'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/pocketcoin/sqlite/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_pkoin_staking.cli.bin.sh\n'
-
 ```
-   * new screen tab, named 'blocknet cli', running blocknet cli, block wallet version with multi-pair-dxbot xbrodge API support
-```
-gswt='blocknet.cli'
-screen -drS ${gssn} -X screen -t "${gswt}"
-screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet.qa/\n'
-screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_dex.cli.bin.sh\n'
-```
-   * new screen tab, named 'bitcoin cli', running bitcoin cli, bitcoin wallet used with dxbot...
-```
-gswt='bitcoin.cli'
-screen -drS ${gssn} -X screen -t "${gswt}"
-screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/bitcoin/\n'
-screen -S ${gssn} -p "${gswt}" -X stuff './firejail.bitcoin.wallet_btc_dex.cli.bin.sh\n'
-```
-   * new screen tab, named 'litecoin cli', running litecoin cli, litecoin wallet used with dxbot...
-```
-gswt='litecoin.cli'
-screen -drS ${gssn} -X screen -t "${gswt}"
-screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/litecoin/\n'
-screen -S ${gssn} -p "${gswt}" -X stuff './firejail.litecoin.wallet_ltc_dex.cli.bin.sh\n'
-```
-   * new screen tab, named 'blocknet', running blocknet qt wallet, block wallet version with multi-pair-dxbot xbrodge API support
+   * 'blocknet' tab running blocknet qt wallet, block wallet version with multi-pair-dxbot xbrodge API support
+   * 'blocknet cli' tab running blocknet cli, block wallet version with multi-pair-dxbot xbrodge API support
 ```
 gswt='blocknet'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet.qa/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_dex.qt.bin.sh\n'
+
+gswt='blocknet.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/blocknet/blocknet.qa/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.blocknet.wallet_block_dex.cli.bin.sh\n'
 ```
-   * new screen tab, named 'bitcoin', running bitcoin qt wallet, bitcoin wallet used with dxbot...
+   * 'bitcoin' tab
+   * 'bitcoin cli' tab
 ```
 gswt='bitcoin'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/bitcoin/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './firejail.bitcoin.wallet_btc_dex.qt.bin.sh\n'
+
+gswt='bitcoin.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/bitcoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.bitcoin.wallet_btc_dex.cli.bin.sh\n'
 ```
-   * new screen tab, named 'litecoin', running litecoin qt wallet, litecoin wallet used with dxbot...
+   * 'litecoin' tab
+   * 'litecoin cli' tab
 ```
 gswt='litecoin'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/litecoin/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './firejail.litecoin.wallet_ltc_dex.qt.bin.sh\n'
+
+gswt='litecoin.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/litecoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.litecoin.wallet_ltc_dex.cli.bin.sh\n'
 ```
-   * new screen tab, named 'BTC LTC', running previously generated dxbot BTC LTC pair script
+   * 'dogecoin' tab
+   * 'dogecoin cli' tab
+```
+gswt='dogecoin'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dogecoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.dogecoin.wallet_doge_dex.qt.bin.sh\n'
+
+gswt='dogecoin.cli'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dogecoin/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './firejail.dogecoin.wallet_doge_dex.cli.bin.sh\n'
+```
+   * finally screen tabs for dxbot, named 'BTC LTC', running previously generated dxbot BTC LTC pair script
+   * new screen tab, named 'LTC BTC', running previously generated dxbot LTC BTC pair script
 ```
 gswt='BTC.LTC'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.BTC.LTC.test1.sh\n'
-```
-   * new screen tab, named 'LTC BTC', running previously generated dxbot LTC BTC pair script
-```
+
 gswt='LTC.BTC'
 screen -drS ${gssn} -X screen -t "${gswt}"
 screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
 screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.LTC.BTC.test1.sh\n'
 ```
+   * dxbot DOGE LTC pair script
+   * dxbot LTC DOGE pair script
+```
+gswt='DOGE.LTC'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.DOGE.LTC.test1.sh\n'
+
+gswt='LTC.DOGE'
+screen -drS ${gssn} -X screen -t "${gswt}"
+screen -S ${gssn} -p "${gswt}" -X stuff 'cd ~/Downloads/ccwallets/dxbot/\n'
+screen -S ${gssn} -p "${gswt}" -X stuff './run.firejail.LTC.DOGE.test1.sh\n'
+```
+   * Now feel free to continue same way with other pairs like `dash`, `lbrycrd`, `pivx`, `verge`...
