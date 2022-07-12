@@ -66,7 +66,7 @@ argc=$#
 argv=("$@")
 
 for (( j=1; j<argc; j++ )); do
-    if [[ "${argv[j]}" == "noproxychains"* ]]; then
+    if [[ "${argv[j]}" == "noproxychains" ]]; then
         if [ "${cc_proxychains}" = "${cc_proxychains_default}" ]; then
             cc_proxychains=
             echo "INFO >> proxychains disabled"

@@ -18,6 +18,7 @@ so here this project comes:
    * Easy to **make custom profiles** by changing few lines of configuration
    * Easy to **setup Blocknet+XBridge+DxBot+trading/liquidity-Strategy**
    * Easy to setup **private, opensource and truly-decetralized liquidity pools** that directly doing atomic-swaps between native wallets like BTC-LTC, DOGE-LTC, XVG, ...
+   * Easy to **setup Blocknet's BlockDX truly-decentralized-exchange**
    * Whole build process and wallet security **protection by firejail sandbox**
    * Whole build process and wallet **network privacy protection by TOR**
    * Easy to **test untrusted wallets in secured environment** because build-in system/network protection

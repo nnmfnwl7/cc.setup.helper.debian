@@ -21,8 +21,8 @@ cc_git_src_url="https://github.com/pocketnetteam/pocketnet.core.git"
 cc_git_src_branch_master="0.20"
 #~ cc_git_src_branch="feature/sqlite"
 #~ cc_git_commit_id="cb78e60beef40e0293b1ed1b5b70a8782c0ee5ec"
-cc_git_src_branch="v0.20.24"
-cc_git_commit_id="e9dabe8ec6cfa4e190ef65746002e9485372f7a7"
+cc_git_src_branch="v0.20.25"
+cc_git_commit_id="5b40152e5a9dcc68da0620b46d97ec19621f5e81"
 
 cc_make_cpu_threads=3
 
